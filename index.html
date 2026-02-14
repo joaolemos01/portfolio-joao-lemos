@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>João Lemos | Portfolio</title>
 </head>
+
 <body>
-    <header class="header"> <!--BARRA DE MENUS-->
+    <!--BARRA DE MENUS-->
+    <header class="header">
         <nav class="nav">
             <a class="nav__brand" href="#home">
                 <img src="assets/img/logo.png" alt="Sua Logo" />
@@ -22,17 +25,38 @@
     </header>
 
     <main class="main">
-        <section id="home" class="section section--home"> <!--HOME SECTION-->
+        <!--HOME SECTION-->
+        <section id="home" class="section section--home">
             <div class="section__container">
                 <div class="home__content"> <!--CONTEÚDO PRINCIPAL DA HOME-->
                     <h1 class="home__title">João Lemos</h1>
                     <p class="home__subtitle">Front-end Developer focado em criar interfaces modernas e funcionais.</p>
-                    <a href="#projects" class="home__cta">
-                        Ver meus projetos
-                    </a>
+                    <div class="home__actions">
+                        <a href="#projects" class="home__cta">Ver meus projetos</a>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section section--about">
+            <div class="section__container">
+                <div class="about__content">
+                    <h2 class="section__title">Sobre</h2>
+                    <p class="about__text">
+                        Sou desenvolvedor Front-end focado em criar interfaces modernas,
+                        organizadas e funcionais. Estou em constante evolução e busco
+                        transformar ideias em experiências digitais.
+                    </p>
+                    <p class="about__text">
+                        Atualmente estudo JavaScript e aprimoro minhas habilidades em
+                        HTML e CSS construindo projetos reais.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
     </main>   
     
     <footer>
