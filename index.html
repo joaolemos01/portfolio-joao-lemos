@@ -15,7 +15,6 @@
                 <img src="assets/img/logo.png" alt="Sua Logo" />
             </a>
             <div class="nav__links">
-                <a class="nav__link" href="#home">Inicio</a>
                 <a class="nav__link" href="#resume">Baixar CV</a>
                 <a class="nav__link" href="#about">Sobre</a>
                 <a class="nav__link" href="#projects">Projetos</a>
@@ -88,6 +87,35 @@
                         </a>
                     </article>
                 </div>
+            </div>
+        </section>
+
+    <!-- CONTACT SECTION -->
+        <section id="contact" class="section section--contact">
+            <div class="section__container">
+
+                <h2 class="section__title">Contato</h2>
+
+                <form id="contact-form" class="contact__form" action="/api/contact" method="POST">
+                    <div class="form__group">
+                        <label for="name">Nome</label>
+                        <input id="name" name="name" type="text" required />
+                    </div>
+
+                    <div class="form__group">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" required />
+                    </div>
+
+                    <div class="form__group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="contact__button">Enviar mensagem</button>
+                </form>
+
+
             </div>
         </section>
 
