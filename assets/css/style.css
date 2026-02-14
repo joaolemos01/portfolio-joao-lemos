@@ -1,0 +1,102 @@
+/* ===== Base (Reset) ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  font-family: Arial, sans-serif;
+  color: #eaeaea;
+  background-color: #081427; /* midnight blue */
+}
+
+main {
+  flex: 1;
+}
+
+/* ===== Container ===== */
+.section__container {
+  max-width: 68.75rem; /* 1100px */
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
+}
+
+/* ===== Header / Nav ===== */
+.header {
+  background-color: #f2f2f2; /* claro para ícones escuros */
+}
+
+.nav {
+  max-width: 68.75rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__brand img {
+  height: 2rem; /* controla o tamanho da logo */
+  width: auto;
+  display: block;
+}
+
+.nav__links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nav__link {
+  text-decoration: none;
+  color: #081427;
+  background-color: #ffffff;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999rem;
+  font-weight: 700;
+}
+
+.nav__link:hover {
+  opacity: 0.85;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background-color: #f2f2f2; /* claro para ícones escuros */
+}
+
+.footer__container {
+  max-width: 68.75rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer__text {
+  color: #081427;
+  font-size: 0.875rem;
+}
+
+.footer__social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer__social-link img {
+  height: 1.25rem; /* aqui resolve os SVG enormes */
+  width: auto;
+  display: block;
+}
