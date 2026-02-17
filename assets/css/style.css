@@ -113,7 +113,7 @@ main {
   display: block;
 }
 
-/* ===== Home (A) ===== */
+/* ===== HOME (A) ===== */
 
 /* Espaçamento vertical da section Home */
 /* 5rem em cima e 5rem embaixo */
@@ -163,4 +163,87 @@ main {
 /* Efeito ao passar o mouse */
 .home__cta:hover {
   opacity: 0.65; /* leve transparência para efeito visual */
+}
+
+/* ===== ABOUT Section ===== */
+
+/* Fundo claro para contraste com Home */
+.section--about {
+  background-color: #f2f2f2;
+  padding: 5rem 0;
+}
+
+/* Ajusta cores do texto no fundo claro */
+.section--about .section__title,
+.section--about .about__text {
+  color: #081427;
+}
+
+/* Centraliza conteúdo */
+.about__content {
+  max-width: 50rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Espaçamento entre parágrafos */
+.about__text + .about__text {
+  margin-top: 1rem;
+}
+
+/* ===== Projects Section ===== */
+
+.section--projects {
+  padding: 5rem 0;
+  background-color: #081427; /* fundo escuro */
+}
+
+/* Trilho horizontal estilo Netflix */
+.projects__track {
+  display: flex; /* coloca cards lado a lado */
+  gap: 1.5rem; /* espaço entre cards */
+
+  overflow-x: auto; /* ativa scroll horizontal */
+  scroll-snap-type: x mandatory; /* encaixe suave */
+  padding-bottom: 1rem; /* espaço para não cortar sombra */
+}
+
+/* Esconde barra de scroll em navegadores modernos */
+.projects__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cada card individual */
+.project-card {
+  min-width: 18rem; /* largura fixa mínima */
+  background-color: #0f1f3a; /* azul mais claro que fundo */
+  padding: 1.5rem;
+  border-radius: 1rem;
+
+  scroll-snap-align: start; /* encaixe no scroll */
+}
+
+/* Título do card */
+.project-card__title {
+  margin-bottom: 0.5rem;
+}
+
+/* Texto do card */
+.project-card__text {
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+/* Botão do card */
+.project-card__link {
+  display: inline-block;
+  margin-top: 1rem;
+
+  background-color: #f2f2f2;
+  color: #081427;
+
+  padding: 0.5rem 1rem;
+  border-radius: 999rem;
+  text-decoration: none;
+  font-weight: 700;
 }
