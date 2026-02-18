@@ -196,6 +196,15 @@ main {
 .section--projects {
   padding: 5rem 0;
   background-color: #081427; /* fundo escuro */
+  text-align: center;
+}
+
+/* ===== ALTERA TODOS OS TITULOS ===== */
+.section__title {
+  margin-bottom: 5rem;
+  text-align: center;
+  font-size: 2.5rem; /* aumenta impacto visual */
+  letter-spacing: 0.04rem; /* leve espaçamento entre letras */
 }
 
 /* Trilho horizontal estilo Netflix */
@@ -247,3 +256,162 @@ main {
   text-decoration: none;
   font-weight: 700;
 }
+
+/* ===== Resume Section ===== */
+
+/* Fundo claro */
+.section--resume {
+  background-color: #f2f2f2;
+  padding: 5rem 0;
+}
+
+/* Centraliza conteúdo */
+.section--resume .section__container {
+  text-align: center;
+}
+
+/* Ajusta cores no fundo claro */
+.section--resume .section__title,
+.section--resume .resume__text {
+  color: #081427;
+}
+
+/* Espaçamento do texto */
+.resume__text {
+  margin-top: 1rem;
+  opacity: 0.9;
+}
+
+/* Botão padrão estilo Home */
+.resume__download {
+  display: inline-block;
+  margin-top: 2rem;
+
+  background-color: #081427;
+  color: #f2f2f2;
+
+  padding: 0.75rem 1.25rem;
+  border-radius: 999rem;
+
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Hover suave */
+.resume__download:hover {
+  opacity: 0.9;
+}
+
+/* ===== Contact Section (Form) ===== */
+
+/* Espaçamento padrão e fundo escuro já vem do body, então aqui só garantimos ritmo */
+.section--contact {
+  padding: 5rem 0;
+}
+
+/* Centraliza o bloco do formulário e limita a largura (A: 500–600px) */
+.contact__form {
+  max-width: 35rem; /* ~560px */
+  margin: 0 auto;   /* centraliza */
+}
+
+/* Agrupa label + input/textarea com espaçamento */
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;      /* espaço entre label e campo */
+  margin-top: 1rem; /* espaço entre grupos */
+}
+
+/* Labels mais legíveis no dark */
+.form__group label {
+  font-weight: 700;
+}
+
+/* Campos do formulário */
+.form__group input,
+.form__group textarea {
+  background-color: #0f1f3a; /* tom mais claro que o fundo */
+  color: #eaeaea;
+
+  border: 1px solid rgba(242, 242, 242, 0.25);
+  border-radius: 0.75rem;
+
+  padding: 0.85rem 1rem; /* conforto ao digitar */
+  outline: none;         /* a gente controla no focus */
+}
+
+/* Destaque ao clicar no campo */
+.form__group input:focus,
+.form__group textarea:focus {
+  border-color: rgba(242, 242, 242, 0.7);
+}
+
+/* Botão do formulário (padrão do site) */
+.contact__button {
+  margin-top: 1.5rem;
+  width: 100%; /* fica com cara de “CTA” */
+  border: 0;
+
+  background-color: #f2f2f2;
+  color: #081427;
+
+  padding: 0.85rem 1.25rem;
+  border-radius: 999rem;
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.contact__button:hover {
+  opacity: 0.9;
+}
+
+/* ===== Mobile (Responsive) ===== */
+@media (max-width: 40rem) {
+  /* Ajusta container pra respirar menos no celular */
+  .section__container {
+    padding: 2rem 1rem;
+  }
+
+  /* Menu: quebra linha e fica mais confortável */
+  .nav {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .nav__brand img {
+    height: 1.75rem;
+  }
+
+  .nav__links {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .nav__link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Home: título menor no mobile */
+  .home__title {
+    font-size: 2rem;
+  }
+
+  /* Projetos: cards um pouco menores pra caber melhor no scroll */
+  .project-card {
+    min-width: 16rem;
+  }
+
+  /* Form: continua 100% e confortável */
+  .contact__form {
+    max-width: 100%;
+  }
+
+  .contact__button {
+    width: 100%;
+  }
+}
+
