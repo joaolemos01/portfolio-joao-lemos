@@ -415,3 +415,43 @@ main {
   }
 }
 
+/* ===== Micro details (Premium polish) ===== */
+
+/* Transição suave em tudo que é clicável */
+.nav__link,
+.home__cta,
+.project-card,
+.project-card__link,
+.resume__download,
+.contact__button,
+.footer__social-link img {
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Botões do menu: efeito “lift” discreto */
+.nav__link:hover {
+  transform: translateY(-0.08rem);
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.18);
+}
+
+/* CTA da home e botões: leve destaque */
+.home__cta:hover,
+.resume__download:hover,
+.project-card__link:hover,
+.contact__button:hover {
+  transform: translateY(-0.08rem);
+  box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.22);
+}
+
+/* Cards: profundidade ao passar o mouse */
+.project-card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.7rem 1.6rem rgba(0, 0, 0, 0.28);
+}
+
+/* Ícones do footer: micro feedback */
+.footer__social-link img:hover {
+  transform: translateY(-0.08rem);
+  opacity: 0.85;
+}
+
