@@ -24,6 +24,7 @@ body {
 /* ===== FAZ O CONTEUDO PRINCIPAL EMPURAR O FOOTER ===== */
 main {
   flex: 1;
+  margin-top: 5rem; /* ajuste conforme altura do header */
 }
 
 /* ===== CENTRALIZAR CONTEUDO E LIMITA LARGURA ===== */
@@ -33,9 +34,14 @@ main {
   padding: 2.5rem 1.25rem; /* ESPAÇAMENTO INTERNO VERTICAL|HOTIZONTAL */
 }
 
-/* ===== FUNDO DO MENU ===== */
+/* ===== MENU ===== */
 .header {
   background-color: #f2f2f2; /* claro para ícones escuros */
+  position: fixed;      /* fixa na tela */
+  top: 0;               /* encosta no topo */
+  left: 0;
+  width: 100%;          /* ocupa toda largura */
+  z-index: 1000;        /* fica acima de tudo */
 }
 
 /* ===== CONTAINER INTERNO DO MENU ===== */
@@ -455,3 +461,13 @@ main {
   opacity: 0.85;
 }
 
+/* Integração Menu com JS */
+.nav__link.active {
+  background-color: #081427; 
+  color: #f2f2f2;
+}
+
+/* Estilo quando o header está rolado */
+.header.scrolled {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15); /* sombra suave */
+}
