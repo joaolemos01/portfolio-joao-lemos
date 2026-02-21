@@ -52,3 +52,27 @@ window.addEventListener("scroll", function () {
   }
 
 });
+
+// Seleciona elementos do carrossel
+const track = document.querySelector(".projects__track");
+const nextButton = document.querySelector(".projects__next");
+const prevButton = document.querySelector(".projects__prev");
+
+// Define quanto vai mover (300px por clique)
+const scrollAmount = 300;
+
+// Evento botão próximo
+nextButton.addEventListener("click", () => {
+  track.scrollBy({
+    left: scrollAmount,
+    behavior: "smooth"
+  });
+});
+
+// Evento botão anterior
+prevButton.addEventListener("click", () => {
+  track.scrollBy({
+    left: -scrollAmount,
+    behavior: "smooth"
+  });
+});

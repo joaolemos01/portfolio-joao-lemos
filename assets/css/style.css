@@ -471,3 +471,43 @@ main {
 .header.scrolled {
   box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15); /* sombra suave */
 }
+
+/* Wrapper controla posição relativa */
+.projects__wrapper {
+  position: relative;
+}
+
+/* Botões estilo Netflix */
+.projects__prev,
+.projects__next {
+  position: absolute;
+  top: 570%;                 /* meio vertical */
+  transform: translateY(-50%);
+
+  background: none;         /* remove fundo */
+  border: none;             /* remove borda */
+  color: #f2f2f2;
+
+  font-size: 2rem;
+  cursor: pointer;
+
+  opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Esquerda */
+.projects__prev {
+  left: -2rem;
+}
+
+/* Direita */
+.projects__next {
+  right: -2rem;
+}
+
+/* Hover */
+.projects__prev:hover,
+.projects__next:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
