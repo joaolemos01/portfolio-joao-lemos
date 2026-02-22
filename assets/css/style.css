@@ -1,94 +1,117 @@
-/* ===== BASE / REMOVER ESPAÇAMENTOS ===== */
+/* Remove espaçamentos padrões e melhora cálculo de largura */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* INCLUIR PADDING|BORDER CALCULO DA LARGURA */
+  box-sizing: border-box; /* inclui padding/borda na largura/altura */
 }
 
-/* ===== SCROLL SUAVE P/LINK ===== */
+/* Rolagem suave para links internos (#home, #projects...) */
 html {
   scroll-behavior: smooth;
 }
 
-/* ===== LAYOUT BASE DO SITE ===== */
+/* Layout base do site (tema escuro) */
 body {
-  min-height: 100vh; /* LIMITE MINIMO ALTURA DA TELA */
+  min-height: 100vh;              /* ocupa no mínimo a altura da tela */
   display: flex;
-  flex-direction: column; /* EMPURRAR O FOOTER PARA BAIXO */
+  flex-direction: column;         /* permite footer ficar no fim */
 
   font-family: monospace, sans-serif;
-  color: #eaeaea; /* COR PADRÃO TEXTOS */
-  background-color: #081427; 
+  color: #eaeaea;                 /* cor padrão do texto no dark */
+  background-color: #081427;      /* azul meia-noite */
 }
 
-/* ===== FAZ O CONTEUDO PRINCIPAL EMPURAR O FOOTER ===== */
+/* Conteúdo principal cresce e empurra o footer */
 main {
   flex: 1;
-  margin-top: 5rem; /* ajuste conforme altura do header */
+  margin-top: 5rem;               /* compensação do header fixo */
 }
 
-/* ===== CENTRALIZAR CONTEUDO E LIMITA LARGURA ===== */
+/* Container padrão: centraliza e limita largura */
 .section__container {
-  max-width: 68.75rem; /* 1100px */
-  margin: 0 auto; /* CENTRALIZA HORIZONTALMENTE */
-  padding: 2.5rem 1.25rem; /* ESPAÇAMENTO INTERNO VERTICAL|HOTIZONTAL */
+  max-width: 68.75rem;            /* 1100px */
+  margin: 0 auto;                 /* centraliza */
+  padding: 2.5rem 1.25rem;        /* respiro vertical/horizontal */
 }
 
-/* ===== MENU ===== */
+/* =========================================================
+   HEADER / NAV (fixo)
+   ========================================================= */
+
 .header {
-  background-color: #f2f2f2; /* claro para ícones escuros */
-  position: fixed;      /* fixa na tela */
-  top: 0;               /* encosta no topo */
+  background-color: #f2f2f2;      /* claro para ícones/logos escuros */
+  position: fixed;                /* fica preso no topo */
+  top: 0;
   left: 0;
-  width: 100%;          /* ocupa toda largura */
-  z-index: 1000;        /* fica acima de tudo */
+  width: 100%;
+  z-index: 1000;                  /* garante ficar acima do conteúdo */
 }
 
-/* ===== CONTAINER INTERNO DO MENU ===== */
+/* Container interno do menu */
 .nav {
   max-width: 68.75rem;
   margin: 0 auto;
   padding: 1rem 1.25rem;
 
-  display: flex; /* ORGANIZA LOGO E LINKS LADO A LADO */
-  align-items: center; /*ALINHAMENTO VERTICAL */
-  justify-content: space-between; /*LOGO ESQUERDA | LINKS DIREITA*/
+  display: flex;                  /* logo + links lado a lado */
+  align-items: center;            /* alinha verticalmente */
+  justify-content: space-between; /* logo esquerda, links direita */
 }
 
-/* ===== TAMANHO DA LOGO ===== */
+/* Tamanho da logo */
 .nav__brand img {
-  height: 2rem; /* controla o tamanho da logo */
-  width: auto; /* MANTEM PROPORÇÃO */
-  display: block;
+  height: 2rem;                   /* controla o tamanho da logo */
+  width: auto;                    /* mantém proporção */
+  display: block;                 /* evita espaçamentos de inline */
 }
 
-/* ===== GRUPO DE LINKS MENU ===== */
+/* Grupo de links */
 .nav__links {
   display: flex;
-  gap: 0.75rem; /*ESPAÇO ENTRE BOTÕES*/
+  gap: 0.75rem;                   /* espaço entre botões */
 }
 
-/* ===== VISUAL DOS BOTÕES MENU ===== */
+/* Botões do menu */
 .nav__link {
-  text-decoration: none; /* REMOVE SUBLINHADO */
+  text-decoration: none;          /* tira sublinhado */
   color: #081427;
   background-color: #ffffff;
   padding: 0.55rem 0.9rem;
-  border-radius: 999rem; /* BOTÃO ARREDONDADO */
+  border-radius: 999rem;          /* pill */
   font-weight: 700;
 }
 
-/* ===== EFEITO PASSAR MOUSE ===== */
-.nav__link:hover {
-  opacity: 0.65; 
+/* Estado ativo (JS) */
+.nav__link.active {
+  background-color: #081427;
+  color: #f2f2f2;
 }
 
-/* ===== Footer ===== */
+/* Header com sombra ao rolar (JS adiciona .scrolled) */
+.header.scrolled {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* =========================================================
+   TITLES (padrão)
+   ========================================================= */
+
+/* Padrão de título de section (mais equilibrado) */
+.section__title {
+  text-align: center;
+  font-size: 2rem;                /* padrão profissional */
+  letter-spacing: 0.03rem;
+  margin-bottom: 2rem;            /* espaço antes do conteúdo */
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
 .footer {
-  background-color: #f2f2f2; /* claro para ícones escuros */
+  background-color: #f2f2f2;
 }
 
-/* ===== ORGANIZAÇÃO INTERNA ===== */
 .footer__container {
   max-width: 68.75rem;
   margin: 0 auto;
@@ -96,163 +119,151 @@ main {
 
   display: flex;
   align-items: center;
-  justify-content: space-between; /* TEXTO ESQUERDA | ICONES DIREITA */
+  justify-content: space-between;
   gap: 1rem;
 }
 
-/* ===== TEXTO COPYRIGHT ===== */
 .footer__text {
   color: #081427;
   font-size: 0.875rem;
 }
 
-/* ===== ICONES SOCIAIS ===== */
 .footer__social {
   display: flex;
   gap: 0.75rem;
 }
 
-/* ===== TAMANHO ICONES ===== */
 .footer__social-link img {
-  height: 1.25rem; /* aqui resolve os SVG enormes */
+  height: 1.25rem;                /* controla tamanho dos ícones */
   width: auto;
   display: block;
 }
 
-/* ===== HOME (A) ===== */
+/* =========================================================
+   HOME
+   ========================================================= */
 
-/* Espaçamento vertical da section Home */
-/* 5rem em cima e 5rem embaixo */
 .section--home {
-  padding: 5rem 0;
+  padding: 5rem 0;                /* respiro vertical da home */
 }
 
-/* Container interno da Home */
-/* Limita largura e centraliza o bloco */
 .home__content {
-  max-width: 45rem; /* evita texto muito largo */
-  margin: 0 auto;   /* centraliza horizontalmente */
-  text-align: center; /* centraliza texto e botão */
+  max-width: 45rem;               /* evita texto largo demais */
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* Título principal da Home */
 .home__title {
-  font-size: 2.5rem; /* aumenta impacto visual */
-  letter-spacing: 0.04rem; /* leve espaçamento entre letras */
+  font-size: 2.5rem;
+  letter-spacing: 0.04rem;
 }
 
-/* Subtítulo abaixo do nome */
 .home__subtitle {
-  margin-top: 0.75rem; /* espaço acima do subtítulo */
-  opacity: 0.9; /* deixa levemente mais suave que o título */
-  line-height: 1.6; /* melhora legibilidade */
+  margin-top: 0.75rem;
+  opacity: 0.9;
+  line-height: 1.6;
 }
 
-/* Container dos botões */
 .home__actions {
-  margin-top: 1.5rem; /* separa botão do texto */
+  margin-top: 1.5rem;
 }
 
-/* Botão principal da Home */
 .home__cta {
-  display: inline-block; /* permite padding e largura controlada */
-  text-decoration: none; /* remove sublinhado padrão */
-  font-weight: 800; /* deixa mais forte visualmente */
+  display: inline-block;          /* link vira “botão” */
+  text-decoration: none;
+  font-weight: 800;
 
-  background-color: #f2f2f2; /* fundo claro */
-  color: #081427; /* azul meia-noite */
+  background-color: #f2f2f2;
+  color: #081427;
 
-  padding: 0.75rem 1.25rem; /* espaço interno do botão */
-  border-radius: 999rem; /* formato arredondado estilo pill */
+  padding: 0.75rem 1.25rem;
+  border-radius: 999rem;
 }
 
-/* Efeito ao passar o mouse */
-.home__cta:hover {
-  opacity: 0.65; /* leve transparência para efeito visual */
-}
+/* =========================================================
+   ABOUT (fundo claro)
+   ========================================================= */
 
-/* ===== ABOUT Section ===== */
-
-/* Fundo claro para contraste com Home */
 .section--about {
   background-color: #f2f2f2;
   padding: 5rem 0;
 }
 
-/* Ajusta cores do texto no fundo claro */
+/* Texto escuro dentro do fundo claro */
 .section--about .section__title,
 .section--about .about__text {
   color: #081427;
 }
 
-/* Centraliza conteúdo */
 .about__content {
   max-width: 50rem;
   margin: 0 auto;
   text-align: center;
 }
 
-/* Espaçamento entre parágrafos */
 .about__text + .about__text {
-  margin-top: 1rem;
+  margin-top: 1rem;               /* espaço entre parágrafos */
 }
 
-/* ===== Projects Section ===== */
+/* =========================================================
+   PROJECTS (Netflix scroll)
+   ========================================================= */
 
 .section--projects {
   padding: 5rem 0;
-  background-color: #081427; /* fundo escuro */
-  text-align: center;
+  background-color: #081427;
 }
 
-/* ===== ALTERA TODOS OS TITULOS ===== */
-.section__title {
-  margin-bottom: 5rem;
-  text-align: center;
-  font-size: 2.5rem; /* aumenta impacto visual */
-  letter-spacing: 0.04rem; /* leve espaçamento entre letras */
+/* Título de Projects central e com espaço ok */
+.section--projects .section__title {
+  margin-bottom: 3rem;            /* afasta do carrossel */
+}
+
+/* Wrapper para setas absolute se posicionarem corretamente */
+.projects__wrapper {
+  position: relative;
 }
 
 /* Trilho horizontal estilo Netflix */
 .projects__track {
-  display: flex; /* coloca cards lado a lado */
-  gap: 1.5rem; /* espaço entre cards */
+  display: flex;
+  flex-wrap: nowrap;              /* NÃO deixa quebrar linha */
+  gap: 1.5rem;
 
-  overflow-x: auto; /* ativa scroll horizontal */
-  scroll-snap-type: x mandatory; /* encaixe suave */
-  padding-bottom: 1rem; /* espaço para não cortar sombra */
+  overflow-x: auto;               /* scroll horizontal */
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1rem;           /* evita cortar sombra */
 }
 
-/* Esconde barra de scroll em navegadores modernos */
+/* Esconde scrollbar no WebKit (Chrome/Safari) */
 .projects__track::-webkit-scrollbar {
   display: none;
 }
 
-/* Cada card individual */
+/* Card individual */
 .project-card {
-  min-width: 18rem; /* largura fixa mínima */
-  background-color: #0f1f3a; /* azul mais claro que fundo */
+  flex: 0 0 auto;                 /* impede o flex de esmagar o card */
+  min-width: 18rem;               /* força overflow quando tem vários */
+  background-color: #0f1f3a;
   padding: 1.5rem;
   border-radius: 1rem;
-
-  scroll-snap-align: start; /* encaixe no scroll */
+  scroll-snap-align: start;
 }
 
-/* Título do card */
 .project-card__title {
   margin-bottom: 0.5rem;
 }
 
-/* Texto do card */
 .project-card__text {
   opacity: 0.85;
   line-height: 1.5;
 }
 
-/* Botão do card */
 .project-card__link {
-  display: inline-block;
-  margin-top: 1rem;
+  display: block;              /* OBS: agora margin auto funciona */
+  width: fit-content;          /* OBS: o botão fica do tamanho do texto */
+  margin: 1rem auto 0;         /* OBS: centraliza horizontal */
 
   background-color: #f2f2f2;
   color: #081427;
@@ -263,32 +274,68 @@ main {
   font-weight: 700;
 }
 
-/* ===== Resume Section ===== */
+/* Setas (overlay minimalista) */
+.projects__prev,
+.projects__next {
+  position: absolute;
+  top: 50%;                        /* meio vertical do wrapper */
+  transform: translateY(-50%);
 
-/* Fundo claro */
+  background: none;
+  border: none;
+  color: #f2f2f2;
+
+  font-size: 2rem;
+  cursor: pointer;
+
+  opacity: 0.5;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.projects__prev {
+  left: -0.80rem;
+}
+
+.projects__next {
+  right: -0.80rem;
+}
+
+.projects__prev:hover,
+.projects__next:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* Quando JS desabilita */
+.projects__prev.is-disabled,
+.projects__next.is-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================================================
+   RESUME (fundo claro)
+   ========================================================= */
+
 .section--resume {
   background-color: #f2f2f2;
   padding: 5rem 0;
 }
 
-/* Centraliza conteúdo */
 .section--resume .section__container {
   text-align: center;
 }
 
-/* Ajusta cores no fundo claro */
 .section--resume .section__title,
 .section--resume .resume__text {
   color: #081427;
 }
 
-/* Espaçamento do texto */
 .resume__text {
   margin-top: 1rem;
   opacity: 0.9;
 }
 
-/* Botão padrão estilo Home */
 .resume__download {
   display: inline-block;
   margin-top: 2rem;
@@ -303,60 +350,50 @@ main {
   font-weight: 700;
 }
 
-/* Hover suave */
-.resume__download:hover {
-  opacity: 0.9;
-}
+/* =========================================================
+   CONTACT (form)
+   ========================================================= */
 
-/* ===== Contact Section (Form) ===== */
-
-/* Espaçamento padrão e fundo escuro já vem do body, então aqui só garantimos ritmo */
 .section--contact {
   padding: 5rem 0;
 }
 
-/* Centraliza o bloco do formulário e limita a largura (A: 500–600px) */
 .contact__form {
-  max-width: 35rem; /* ~560px */
-  margin: 0 auto;   /* centraliza */
+  max-width: 35rem;               /* ~560px */
+  margin: 0 auto;
 }
 
-/* Agrupa label + input/textarea com espaçamento */
 .form__group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;      /* espaço entre label e campo */
-  margin-top: 1rem; /* espaço entre grupos */
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
-/* Labels mais legíveis no dark */
 .form__group label {
   font-weight: 700;
 }
 
-/* Campos do formulário */
 .form__group input,
 .form__group textarea {
-  background-color: #0f1f3a; /* tom mais claro que o fundo */
+  background-color: #0f1f3a;
   color: #eaeaea;
 
   border: 1px solid rgba(242, 242, 242, 0.25);
   border-radius: 0.75rem;
 
-  padding: 0.85rem 1rem; /* conforto ao digitar */
-  outline: none;         /* a gente controla no focus */
+  padding: 0.85rem 1rem;
+  outline: none;
 }
 
-/* Destaque ao clicar no campo */
 .form__group input:focus,
 .form__group textarea:focus {
   border-color: rgba(242, 242, 242, 0.7);
 }
 
-/* Botão do formulário (padrão do site) */
 .contact__button {
   margin-top: 1.5rem;
-  width: 100%; /* fica com cara de “CTA” */
+  width: 100%;                    /* CTA full width */
   border: 0;
 
   background-color: #f2f2f2;
@@ -369,18 +406,66 @@ main {
   cursor: pointer;
 }
 
+/* =========================================================
+   MICRO DETAILS (polish)
+   ========================================================= */
+
+/* Transição suave em itens clicáveis */
+.nav__link,
+.home__cta,
+.project-card,
+.project-card__link,
+.resume__download,
+.contact__button,
+.footer__social-link img {
+  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Hovers: usei um padrão único de opacidade */
+.nav__link:hover,
+.home__cta:hover,
+.resume__download:hover,
+.project-card__link:hover,
 .contact__button:hover {
   opacity: 0.9;
 }
 
-/* ===== Mobile (Responsive) ===== */
+/* Lift do menu */
+.nav__link:hover {
+  transform: translateY(-0.08rem);
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.18);
+}
+
+/* Lift dos botões */
+.home__cta:hover,
+.resume__download:hover,
+.project-card__link:hover,
+.contact__button:hover {
+  transform: translateY(-0.08rem);
+  box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.22);
+}
+
+/* Lift dos cards */
+.project-card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.7rem 1.6rem rgba(0, 0, 0, 0.28);
+}
+
+/* Ícones do footer */
+.footer__social-link img:hover {
+  transform: translateY(-0.08rem);
+  opacity: 0.85;
+}
+
+/* =========================================================
+   MOBILE (Responsive)
+   ========================================================= */
+
 @media (max-width: 40rem) {
-  /* Ajusta container pra respirar menos no celular */
   .section__container {
     padding: 2rem 1rem;
   }
 
-  /* Menu: quebra linha e fica mais confortável */
   .nav {
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -401,113 +486,17 @@ main {
     font-size: 0.9rem;
   }
 
-  /* Home: título menor no mobile */
   .home__title {
     font-size: 2rem;
   }
 
-  /* Projetos: cards um pouco menores pra caber melhor no scroll */
+  /* Cards menores no mobile para melhorar o scroll */
   .project-card {
     min-width: 16rem;
   }
 
-  /* Form: continua 100% e confortável */
   .contact__form {
     max-width: 100%;
   }
-
-  .contact__button {
-    width: 100%;
-  }
 }
 
-/* ===== Micro details (Premium polish) ===== */
-
-/* Transição suave em tudo que é clicável */
-.nav__link,
-.home__cta,
-.project-card,
-.project-card__link,
-.resume__download,
-.contact__button,
-.footer__social-link img {
-  transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
-}
-
-/* Botões do menu: efeito “lift” discreto */
-.nav__link:hover {
-  transform: translateY(-0.08rem);
-  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.18);
-}
-
-/* CTA da home e botões: leve destaque */
-.home__cta:hover,
-.resume__download:hover,
-.project-card__link:hover,
-.contact__button:hover {
-  transform: translateY(-0.08rem);
-  box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.22);
-}
-
-/* Cards: profundidade ao passar o mouse */
-.project-card:hover {
-  transform: translateY(-0.15rem);
-  box-shadow: 0 0.7rem 1.6rem rgba(0, 0, 0, 0.28);
-}
-
-/* Ícones do footer: micro feedback */
-.footer__social-link img:hover {
-  transform: translateY(-0.08rem);
-  opacity: 0.85;
-}
-
-/* Integração Menu com JS */
-.nav__link.active {
-  background-color: #081427; 
-  color: #f2f2f2;
-}
-
-/* Estilo quando o header está rolado */
-.header.scrolled {
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15); /* sombra suave */
-}
-
-/* Wrapper controla posição relativa */
-.projects__wrapper {
-  position: relative;
-}
-
-/* Botões estilo Netflix */
-.projects__prev,
-.projects__next {
-  position: absolute;
-  top: 570%;                 /* meio vertical */
-  transform: translateY(-50%);
-
-  background: none;         /* remove fundo */
-  border: none;             /* remove borda */
-  color: #f2f2f2;
-
-  font-size: 2rem;
-  cursor: pointer;
-
-  opacity: 0.5;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-/* Esquerda */
-.projects__prev {
-  left: -2rem;
-}
-
-/* Direita */
-.projects__next {
-  right: -2rem;
-}
-
-/* Hover */
-.projects__prev:hover,
-.projects__next:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
-}
