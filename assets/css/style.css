@@ -412,6 +412,28 @@ main {
   cursor: pointer;
 }
 
+/* Feedback do formulário */
+.form__feedback {
+  margin-top: 1rem;        /* espaço acima da msg */
+  font-weight: 700;        /* destaque */
+  min-height: 1.25rem;     /* evita “pular” layout quando aparece */
+}
+
+/* Estado erro/sucesso */
+.form__feedback.is-error {
+  color: #ffb4b4;          /* vermelho claro no tema escuro */
+}
+
+.form__feedback.is-success {
+  color: #b8ffcf;          /* verde claro */
+}
+
+/* Borda vermelha em campo inválido */
+.form__group input.is-invalid,
+.form__group textarea.is-invalid {
+  border-color: rgba(255, 180, 180, 0.9);
+}
+
 /* =========================================================
    MICRO DETAILS (polish)
    ========================================================= */

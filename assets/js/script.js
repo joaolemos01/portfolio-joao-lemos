@@ -161,6 +161,80 @@ function setupCarousel() {
 }
 
 /* =========================================================
+   CONTACT: simple validation + feedback
+   ========================================================= */
+
+function setupContactForm() {
+  const form = $("#contact-form");
+  if (!form) return; // OBS: evita erro se não existir
+
+  const nameInput = $("#name");
+  const emailInput = $("#email");
+  const messageInput = $("#message");
+  const feedback = $(".form__feedback");
+
+  // OBS: função simples pra validar email (mínimo viável)
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // OBS: limpa estado visual dos campos
+  function clearFieldStates() {
+    [nameInput, emailInput, messageInput].forEach((el) => el.classList.remove("is-invalid"));
+    feedback.classList.remove("is-error", "is-success");
+    feedback.textContent = "";
+  }
+
+  // OBS: mostra mensagem (erro/sucesso)
+  function setFeedback(message, type) {
+    feedback.textContent = message;
+    feedback.classList.remove("is-error", "is-success");
+    feedback.classList.add(type === "error" ? "is-error" : "is-success");
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); // OBS: impede envio real por enquanto (sem backend)
+
+    clearFieldStates();
+
+    const nameValue = nameInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    const messageValue = messageInput.value.trim();
+
+    let hasError = false;
+
+    // OBS: valida nome
+    if (nameValue.length < 2) {
+      nameInput.classList.add("is-invalid");
+      hasError = true;
+    }
+
+    // OBS: valida email
+    if (!isValidEmail(emailValue)) {
+      emailInput.classList.add("is-invalid");
+      hasError = true;
+    }
+
+    // OBS: valida mensagem
+    if (messageValue.length < 10) {
+      messageInput.classList.add("is-invalid");
+      hasError = true;
+    }
+
+    if (hasError) {
+      setFeedback("Por favor, revise os campos destacados.", "error");
+      return;
+}
+
+setFeedback("Mensagem enviada com sucesso!", "success");
+
+    // OBS: sucesso (aqui depois ligamos com backend / EmailJS / etc.)
+    setFeedback("Message sent successfully!", "success");
+    form.reset();
+  });
+}
+
+/* =========================================================
    Init
    ========================================================= */
 
@@ -168,4 +242,5 @@ function setupCarousel() {
 document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupCarousel();
+  setupContactForm();
 });
