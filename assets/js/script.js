@@ -1,113 +1,136 @@
-/* ===== NAV: Active on click ===== */
-const navLinks = document.querySelectorAll(".nav__link");
+/* =========================================================
+   Helpers
+   ========================================================= */
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", function () {
-    // Remove "active" de todos
-    navLinks.forEach((item) => item.classList.remove("active"));
-
-    // Adiciona "active" no clicado
-    this.classList.add("active");
-  });
-});
-
-/* ===== HEADER: used by scroll spy + shadow ===== */
-// Precisa ser declarado antes do scroll spy usar header.offsetHeight
-const header = document.querySelector(".header");
-
-/* ===== HEADER SHADOW ===== */
-window.addEventListener("scroll", () => {
-  // Se rolou mais que 50px, aplica sombra
-  if (window.scrollY > 50) header.classList.add("scrolled");
-  else header.classList.remove("scrolled");
-});
-
-/* ===== SCROLL SPY: Active link while scrolling ===== */
-const sections = document.querySelectorAll("section");
-
-window.addEventListener("scroll", () => {
-  let currentSection = "";
-
-  const headerHeight = header.offsetHeight; // lê a altura real do header fixo
-
-  sections.forEach((section) => {
-    const sectionTop = section.offsetTop;       // posição da section na página
-    const sectionHeight = section.clientHeight; // altura da section
-
-    // Considera o header fixo para ativar o link na hora certa
-    if (window.scrollY >= sectionTop - headerHeight - sectionHeight / 4) {
-      currentSection = section.getAttribute("id");
-    }
-  });
-
-  // Ativa o link correspondente
-  navLinks.forEach((link) => {
-    link.classList.remove("active");
-
-    if (link.getAttribute("href") === `#${currentSection}`) {
-      link.classList.add("active");
-    }
-  });
-});
-
-/* ===== PROJECTS CAROUSEL: arrows + disable ===== */
-const track = document.querySelector(".projects__track");
-const nextButton = document.querySelector(".projects__next");
-const prevButton = document.querySelector(".projects__prev");
-
-const scrollAmount = 300; // pixels por clique
-
-function updateCarouselButtons() {
-  // Segurança: evita erro se não existir carrossel
-  if (!track || !nextButton || !prevButton) return;
-
-  const maxScrollLeft = track.scrollWidth - track.clientWidth;
-
-  // Desabilita esquerda no começo
-  if (track.scrollLeft <= 0) prevButton.classList.add("is-disabled");
-  else prevButton.classList.remove("is-disabled");
-
-  // Desabilita direita no fim
-  if (track.scrollLeft >= maxScrollLeft - 1) nextButton.classList.add("is-disabled");
-  else nextButton.classList.remove("is-disabled");
+// OBS: atalho para pegar 1 elemento
+function $(selector) {
+  return document.querySelector(selector);
 }
 
-// Direita
-nextButton.addEventListener("click", () => {
-  track.scrollBy({ left: scrollAmount, behavior: "smooth" });
-});
+// OBS: atalho para pegar vários elementos
+function $$(selector) {
+  return document.querySelectorAll(selector);
+}
 
-// Esquerda
-prevButton.addEventListener("click", () => {
-  track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-});
+/* =========================================================
+   NAV: active on click + scroll spy
+   ========================================================= */
 
-// Atualiza ao rolar manualmente o carrossel
-track.addEventListener("scroll", updateCarouselButtons);
+function setupNav() {
+  const navLinks = $$(".nav__link");
+  const header = $(".header");
+  const sections = $$("section");
 
-// Atualiza ao carregar e ao redimensionar
-function updateCarouselButtons() {
-  // Segurança: evita erro se não existir carrossel
+  // OBS: se não existir nav ou header, não quebra o site
+  if (!navLinks.length || !header || !sections.length) return;
+
+  // OBS: ativa link no clique
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      navLinks.forEach((item) => item.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+
+  // OBS: sombra do header ao rolar
+  function updateHeaderShadow() {
+    if (window.scrollY > 50) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  }
+
+  // OBS: marca link ativo conforme section visível
+  function updateActiveLinkOnScroll() {
+    let currentSection = "";
+    const headerHeight = header.offsetHeight; // OBS: lê a altura real do header
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+
+      // OBS: compensação do header fixo
+      if (window.scrollY >= sectionTop - headerHeight - sectionHeight / 4) {
+        currentSection = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === `#${currentSection}`) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  // OBS: roda 1 vez ao carregar (estado inicial)
+  updateHeaderShadow();
+  updateActiveLinkOnScroll();
+
+  // OBS: roda sempre que rolar
+  window.addEventListener("scroll", () => {
+    updateHeaderShadow();
+    updateActiveLinkOnScroll();
+  });
+}
+
+/* =========================================================
+   PROJECTS: carousel arrows + disable
+   ========================================================= */
+
+function setupCarousel() {
+  const track = $(".projects__track");
+  const nextButton = $(".projects__next");
+  const prevButton = $(".projects__prev");
+
+  // OBS: se não existir carrossel, não quebra
   if (!track || !nextButton || !prevButton) return;
 
-  const maxScrollLeft = track.scrollWidth - track.clientWidth; // quanto dá pra rolar no total
+  const scrollAmount = 300; // OBS: ajuste fino se quiser
 
-  // ✅ Se não existe scroll (tudo cabe na tela), esconde as duas setas
-  if (maxScrollLeft <= 0) {
-    prevButton.classList.add("is-disabled");
-    nextButton.classList.add("is-disabled");
-    return; // sai da função
+  function updateButtons() {
+    const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+    // OBS: se não tem overflow, esconde as duas
+    if (maxScrollLeft <= 0) {
+      prevButton.classList.add("is-disabled");
+      nextButton.classList.add("is-disabled");
+      return;
+    }
+
+    const threshold = 5; // OBS: evita “piscar” na borda
+
+    if (track.scrollLeft <= threshold) prevButton.classList.add("is-disabled");
+    else prevButton.classList.remove("is-disabled");
+
+    if (track.scrollLeft >= maxScrollLeft - threshold) nextButton.classList.add("is-disabled");
+    else nextButton.classList.remove("is-disabled");
   }
 
-  const threshold = 5; // margem para evitar piscar (principalmente em tela dividida)
+  // OBS: clique direita
+  nextButton.addEventListener("click", () => {
+    track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  });
 
-  // Começo
-  if (track.scrollLeft <= threshold) prevButton.classList.add("is-disabled");
-  else prevButton.classList.remove("is-disabled");
+  // OBS: clique esquerda
+  prevButton.addEventListener("click", () => {
+    track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+  });
 
-  // Fim
-  if (track.scrollLeft >= maxScrollLeft - threshold) nextButton.classList.add("is-disabled");
-  else nextButton.classList.remove("is-disabled");
-  }
-// updateCarouselButtons();
-track.addEventListener("scroll", updateCarouselButtons);
+  // OBS: atualiza quando usuário arrasta/rola manualmente
+  track.addEventListener("scroll", updateButtons);
+
+  // OBS: atualiza ao redimensionar (desktop/tela dividida/mobile)
+  window.addEventListener("resize", updateButtons);
+
+  // OBS: estado inicial
+  updateButtons();
+}
+
+/* =========================================================
+   Init
+   ========================================================= */
+
+// OBS: garante que o HTML já carregou antes de rodar JS
+document.addEventListener("DOMContentLoaded", () => {
+  setupNav();
+  setupCarousel();
+});
