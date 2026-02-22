@@ -234,6 +234,12 @@ main {
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   padding-bottom: 1rem;           /* evita cortar sombra */
+  
+  cursor: grab; /* mão aberta */
+}
+
+.projects__track.is-dragging {
+  cursor: grabbing; /* mão fechada */
 }
 
 /* Esconde scrollbar no WebKit (Chrome/Safari) */

@@ -84,7 +84,42 @@ function setupCarousel() {
   // OBS: se não existir carrossel, não quebra
   if (!track || !nextButton || !prevButton) return;
 
-  const scrollAmount = 300; // OBS: ajuste fino se quiser
+  const scrollAmount = 240; // OBS: ajuste fino se quiser
+
+    /* =========================================================
+     Drag com mouse (desktop)
+     ========================================================= */
+
+  let isDragging = false;  // OBS: controla se está arrastando
+  let startX;              // OBS: posição inicial do mouse
+  let scrollLeft;          // OBS: posição inicial do scroll
+
+  track.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    track.classList.add("is-dragging"); // opcional (estético)
+
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+
+  track.addEventListener("mouseleave", () => {
+    isDragging = false;
+  });
+
+  track.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  track.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+
+    e.preventDefault(); // OBS: evita seleção de texto
+
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.2; // OBS: velocidade do drag (ajustável)
+
+    track.scrollLeft = scrollLeft - walk;
+  });
 
   function updateButtons() {
     const maxScrollLeft = track.scrollWidth - track.clientWidth;
