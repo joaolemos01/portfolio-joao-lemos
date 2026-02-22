@@ -26,9 +26,23 @@ function setupNav() {
 
   // OBS: ativa link no clique
   navLinks.forEach((link) => {
-    link.addEventListener("click", function () {
-      navLinks.forEach((item) => item.classList.remove("active"));
-      this.classList.add("active");
+    link.addEventListener("click", function (e) {
+      e.preventDefault(); // OBS: impede salto brusco padrão
+
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+      const headerHeight = header.offsetHeight;
+
+      if (!targetSection) return;
+
+      // OBS: calcula posição correta compensando header fixo
+      const targetPosition =
+        targetSection.offsetTop - headerHeight + 1;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
     });
   });
 
@@ -235,6 +249,34 @@ setFeedback("Mensagem enviada com sucesso!", "success");
 }
 
 /* =========================================================
+   REVEAL: animations on scroll (A)
+   ========================================================= */
+
+function setupRevealOnScroll() {
+  const targets = document.querySelectorAll("section"); // OBS: vamos animar cada section
+
+  // OBS: adiciona classe base (estado inicial) sem mexer no HTML
+  targets.forEach((el) => el.classList.add("reveal"));
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        // OBS: quando entra na tela, marca como visível
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target); // OBS: anima só 1 vez (mais leve)
+        }
+      });
+    },
+    {
+      threshold: 0.15, // OBS: dispara quando 15% da section aparece
+    }
+  );
+
+  targets.forEach((el) => observer.observe(el));
+}
+
+/* =========================================================
    Init
    ========================================================= */
 
@@ -243,4 +285,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupCarousel();
   setupContactForm();
+  setupRevealOnScroll(); // OBS: ativa animações
 });

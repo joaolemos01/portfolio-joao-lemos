@@ -528,3 +528,17 @@ main {
   }
 }
 
+/* ===== Reveal on scroll (A) ===== */
+
+/* OBS: estado “antes de aparecer” */
+.reveal {
+  opacity: 0;                 /* começa invisível */
+  transform: translateY(0.75rem); /* começa levemente abaixo */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* animação suave */
+}
+
+/* OBS: estado “apareceu” */
+.reveal.is-visible {
+  opacity: 1;                 /* fica visível */
+  transform: translateY(0);   /* volta para posição normal */
+}
