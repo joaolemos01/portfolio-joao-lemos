@@ -305,3 +305,87 @@ document.addEventListener("DOMContentLoaded", () => {
   setupContactForm();
   setupRevealOnScroll(); // OBS: ativa animações
 });
+
+// OBS: seu usuário do GitHub (troque se necessário)
+const GITHUB_USERNAME = "joaolemos01";
+
+// OBS: onde os cards vão ser inseridos
+const projectsTrack = document.querySelector(".projects__track");
+
+// OBS: cria HTML seguro e consistente para cada repo
+function createProjectCard(repo) {
+  const article = document.createElement("article");
+  article.className = "project-card";
+
+  // OBS: descrição pode vir vazia no GitHub
+  const description = repo.description ? repo.description : "Projeto sem descrição no GitHub.";
+
+  // OBS: homepage (GitHub Pages / site do projeto) pode existir
+  const projectUrl = repo.homepage && repo.homepage.trim() !== ""
+    ? repo.homepage
+    : repo.html_url;
+
+  article.innerHTML = `
+    <h3 class="project-card__title">${repo.name}</h3>
+    <p class="project-card__text">${description}</p>
+    <a class="project-card__link" href="${projectUrl}" target="_blank" rel="noopener noreferrer">
+      Ver projeto
+    </a>
+  `;
+
+  return article;
+}
+
+// OBS: renderiza lista de repos na trilha
+function renderProjects(repos) {
+  projectsTrack.innerHTML = ""; // OBS: limpa antes de inserir
+
+  repos.forEach((repo) => {
+    const card = createProjectCard(repo);
+    projectsTrack.appendChild(card);
+  });
+}
+
+// OBS: busca os repos públicos do GitHub
+async function loadGitHubProjects() {
+  if (!projectsTrack) return;
+
+  // OBS: estado de loading simples
+  projectsTrack.innerHTML = `<p style="opacity:.8">Carregando projetos do GitHub...</p>`;
+
+  try {
+    const url = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("GitHub API error");
+    }
+
+    const repos = await response.json();
+
+    // OBS: filtros básicos (remove forks e repos privados não aparecem aqui)
+    const filtered = repos
+      .filter((repo) => !repo.fork) // OBS: remove forks
+      .filter((repo) => repo.name.toLowerCase() !== GITHUB_USERNAME.toLowerCase()); // OBS: opcional
+
+    // OBS: se não tiver nada, mostra mensagem
+    if (filtered.length === 0) {
+      projectsTrack.innerHTML = `<p style="opacity:.8">Nenhum projeto público encontrado.</p>`;
+      return;
+    }
+
+    renderProjects(filtered);
+
+    // OBS: se você usa updateCarouselButtons(), chama depois de renderizar
+    if (typeof updateCarouselButtons === "function") {
+      updateCarouselButtons();
+    }
+  } catch (error) {
+    projectsTrack.innerHTML = `<p style="opacity:.8">Não foi possível carregar os projetos agora.</p>`;
+  }
+}
+
+// OBS: roda quando o HTML já carregou
+document.addEventListener("DOMContentLoaded", () => {
+  loadGitHubProjects();
+});
