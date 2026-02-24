@@ -243,11 +243,26 @@ function setupContactForm() {
       return;
 }
 
-      setFeedback("Mensagem enviada com sucesso!", "success");
-
-      // OBS: sucesso (aqui depois ligamos com backend / EmailJS / etc.)
-      setFeedback("Message sent successfully!", "success");
-      form.reset();
+    // OBS: envia via EmailJS (envio real)
+    emailjs
+      .send(
+        "service_15pxzla",           // OBS: seu SERVICE_ID
+        "template_a8s4n7l",          // OBS: seu TEMPLATE_ID
+        {
+          from_name: nameValue,      // OBS: nome digitado no form
+          from_email: emailValue,    // OBS: email digitado no form
+          message: messageValue,     // OBS: mensagem digitada no form
+        },
+        "ABAnFQNqW_9757-2O"          // OBS: sua PUBLIC KEY
+      )
+      .then(() => {
+        setFeedback("Mensagem enviada com sucesso!", "success");
+        form.reset();
+      })
+      .catch(() => {
+        setFeedback("Erro ao enviar. Tente novamente em instantes.", "error");
+      });
+  
   });
 }
 
