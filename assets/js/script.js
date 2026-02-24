@@ -135,7 +135,10 @@ function setupCarousel() {
     track.scrollLeft = scrollLeft - walk;
   });
 
-  function updateButtons() {
+  // OBS: evita selecionar texto/imagens ao arrastar no desktop
+  track.addEventListener("dragstart", (e) => e.preventDefault());
+
+function updateButtons() {
     const maxScrollLeft = track.scrollWidth - track.clientWidth;
 
     // OBS: se não tem overflow, esconde as duas
@@ -240,11 +243,11 @@ function setupContactForm() {
       return;
 }
 
-setFeedback("Mensagem enviada com sucesso!", "success");
+      setFeedback("Mensagem enviada com sucesso!", "success");
 
-    // OBS: sucesso (aqui depois ligamos com backend / EmailJS / etc.)
-    setFeedback("Message sent successfully!", "success");
-    form.reset();
+      // OBS: sucesso (aqui depois ligamos com backend / EmailJS / etc.)
+      setFeedback("Message sent successfully!", "success");
+      form.reset();
   });
 }
 

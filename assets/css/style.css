@@ -227,15 +227,20 @@ main {
 /* Trilho horizontal estilo Netflix */
 .projects__track {
   display: flex;
-  flex-wrap: nowrap;              /* NÃO deixa quebrar linha */
+  flex-wrap: nowrap; /* NÃO deixa quebrar linha */
   gap: 1.5rem;
 
-  overflow-x: auto;               /* scroll horizontal */
+  overflow-x: auto;
   overflow-y: hidden;
+
   scroll-snap-type: x mandatory;
-  padding-bottom: 1rem;           /* evita cortar sombra */
-  
-  cursor: grab; /* mão aberta */
+
+  padding: 0 2.5rem 1rem; /* OBS: espaço lateral real + espaço inferior */
+
+  cursor: grab;
+  user-select: none;
+
+  scroll-padding-left: 2.5rem; /* OBS: agora faz sentido */
 }
 
 .projects__track.is-dragging {
@@ -255,6 +260,8 @@ main {
   padding: 1.5rem;
   border-radius: 1rem;
   scroll-snap-align: start;
+
+  user-select: none;
 }
 
 .project-card__title {
@@ -530,11 +537,11 @@ main {
 
 /* ===== Reveal on scroll (A) ===== */
 
-/* OBS: estado “antes de aparecer” */
+/* OBS: animação mais lenta e suave */
 .reveal {
-  opacity: 0;                 /* começa invisível */
-  transform: translateY(0.75rem); /* começa levemente abaixo */
-  transition: opacity 0.5s ease, transform 0.5s ease; /* animação suave */
+  opacity: 0; 
+  transform: translateY(1rem); /* OBS: um pouco mais de distância */
+  transition: opacity 0.9s ease, transform 0.9s ease; /* OBS: mais lento */
 }
 
 /* OBS: estado “apareceu” */
