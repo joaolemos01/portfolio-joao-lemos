@@ -254,22 +254,28 @@ main {
 
 /* Card individual */
 .project-card {
-  flex: 0 0 auto;                 /* impede o flex de esmagar o card */
-  min-width: 18rem;               /* força overflow quando tem vários */
+  flex: 0 0 16rem; /* largura fixa menor */
+  min-width: 18rem; /* força overflow quando tem vários */
   background-color: #0f1f3a;
-  padding: 1.5rem;
-  border-radius: 1rem;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
   scroll-snap-align: start;
 
   user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* mantém botão embaixo */
 }
 
 .project-card__title {
   margin-bottom: 0.5rem;
 }
 
+
 .project-card__text {
-  opacity: 0.85;
+  font-size: 0.9rem;
+  opacity: 0.75;
   line-height: 1.5;
 }
 
@@ -281,10 +287,13 @@ main {
   background-color: #f2f2f2;
   color: #081427;
 
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.9rem;;
   border-radius: 999rem;
   text-decoration: none;
   font-weight: 700;
+
+  margin-top: 1rem;
+  font-size: 0.85rem;
 }
 
 /* Setas (overlay minimalista) */
@@ -324,6 +333,18 @@ main {
 .projects__next.is-disabled {
   opacity: 0;
   pointer-events: none;
+}
+
+.projects__hint {
+  margin-top: 0.75rem;
+  opacity: 0.65;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* OBS: quando tiver scroll, escondemos a dica */
+.projects__wrapper.has-scroll .projects__hint {
+  display: none;
 }
 
 /* =========================================================
@@ -525,10 +546,18 @@ main {
     font-size: 2rem;
   }
 
-  /* Cards menores no mobile para melhorar o scroll */
-  .project-card {
-    min-width: 16rem;
-  }
+.project-card {
+  flex: 0 0 16rem; /* largura fixa menor */
+  background-color: #0f1f3a;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+
+  scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* mantém botão embaixo */
+}
 
   .contact__form {
     max-width: 100%;

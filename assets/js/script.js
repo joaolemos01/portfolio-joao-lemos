@@ -138,6 +138,50 @@ function setupCarousel() {
   // OBS: evita selecionar texto/imagens ao arrastar no desktop
   track.addEventListener("dragstart", (e) => e.preventDefault());
 
+// OBS: atualiza estado das setas do carrossel
+function updateCarouselUI() {
+  if (!track || !prevButton || !nextButton) return;
+
+  const maxScrollLeft = track.scrollWidth - track.clientWidth;
+  const hasScroll = maxScrollLeft > 5; // verifica se existe scroll real
+
+  // Se não existe scroll, desativa ambas
+  if (!hasScroll) {
+    prevButton.classList.add("is-disabled");
+    nextButton.classList.add("is-disabled");
+    return;
+  }
+
+  // Se está no início
+  if (track.scrollLeft <= 0) {
+    prevButton.classList.add("is-disabled");
+  } else {
+    prevButton.classList.remove("is-disabled");
+  }
+
+  // Se está no fim
+  if (track.scrollLeft >= maxScrollLeft - 1) {
+    nextButton.classList.add("is-disabled");
+  } else {
+    nextButton.classList.remove("is-disabled");
+  }
+}
+
+  // Atualiza quando clicar nas setas
+  nextButton.addEventListener("click", () => {
+    track.scrollBy({ left: 300, behavior: "smooth" });
+  });
+
+  prevButton.addEventListener("click", () => {
+    track.scrollBy({ left: -300, behavior: "smooth" });
+  });
+
+  // Atualiza quando rolar manualmente
+  track.addEventListener("scroll", updateCarouselUI);
+
+  // Atualiza ao redimensionar tela
+  window.addEventListener("resize", updateCarouselUI);
+
 function updateButtons() {
     const maxScrollLeft = track.scrollWidth - track.clientWidth;
 
@@ -175,6 +219,35 @@ function updateButtons() {
 
   // OBS: estado inicial
   updateButtons();
+
+  // OBS: wrapper (pra ligar/desligar dica)
+const projectsWrapper = document.querySelector(".projects__wrapper");
+
+// OBS: atualiza estado das setas e da dica
+function updateCarouselUI() {
+  if (!track || !prevButton || !nextButton) return;
+
+  const maxScrollLeft = track.scrollWidth - track.clientWidth;
+  const hasScroll = maxScrollLeft > 5;
+
+  // OBS: liga/desliga a dica via classe no wrapper
+  if (projectsWrapper) {
+    projectsWrapper.classList.toggle("has-scroll", hasScroll);
+  }
+
+  // OBS: se não tem scroll, some com setas
+  if (!hasScroll) {
+    prevButton.classList.add("is-disabled");
+    nextButton.classList.add("is-disabled");
+    return;
+  }
+
+  // OBS: começo
+  prevButton.classList.toggle("is-disabled", track.scrollLeft <= 0);
+
+  // OBS: fim
+  nextButton.classList.toggle("is-disabled", track.scrollLeft >= maxScrollLeft - 1);
+}
 }
 
 /* =========================================================
@@ -374,12 +447,13 @@ async function loadGitHubProjects() {
       return;
     }
 
-    renderProjects(filtered);
+      renderProjects(filtered);
 
-    // OBS: se você usa updateCarouselButtons(), chama depois de renderizar
-    if (typeof updateCarouselButtons === "function") {
-      updateCarouselButtons();
-    }
+        // OBS: atualiza setas depois que os cards foram inseridos no DOM
+        if (typeof updateCarouselUI === "function") {
+          requestAnimationFrame(updateCarouselUI);
+        } 
+
   } catch (error) {
     projectsTrack.innerHTML = `<p style="opacity:.8">Não foi possível carregar os projetos agora.</p>`;
   }
@@ -389,3 +463,4 @@ async function loadGitHubProjects() {
 document.addEventListener("DOMContentLoaded", () => {
   loadGitHubProjects();
 });
+
